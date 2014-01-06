@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "koa": "~0.2.1",
-    "koa-route": "~1.0.2"
+    "koa-trie-router": "~1.0.3",
+    "basic-auth": "0.0.1"
   }
 }
