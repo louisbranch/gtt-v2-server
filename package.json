@@ -11,6 +11,11 @@
   "dependencies": {
     "koa": "~0.2.1",
     "koa-trie-router": "~1.0.3",
-    "basic-auth": "0.0.1"
+    "basic-auth": "0.0.1",
+    "nano": "~4.2.1",
+    "co": "~3.0.2",
+    "thunkify": "0.0.1",
+    "lodash": "~2.4.1",
+    "hat": "0.0.3"
   }
 }
