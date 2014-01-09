@@ -1,5 +1,4 @@
-var koa = require("koa"),
-  app = koa(),
+var app = require("koa")(),
   authenticate = require("./lib/authenticate"),
   user = require("./lib/user"),
   project = require("./lib/project");
