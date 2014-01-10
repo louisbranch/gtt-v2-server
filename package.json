@@ -2,9 +2,9 @@
   "name": "gittimetracker",
   "version": "0.0.0",
   "description": "Track your billing time through Git",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "author": "Luiz Branco",
   "license": "MIT",
@@ -18,5 +18,11 @@
     "lodash": "~2.4.1",
     "hat": "0.0.3",
     "pswd": "~2.0.0"
+  },
+  "devDependencies": {
+    "gulp": "~3.3.0",
+    "mocha": "~1.17.0",
+    "gulp-mocha": "~0.3.0",
+    "gulp-batch": "~0.3.3"
   }
 }
