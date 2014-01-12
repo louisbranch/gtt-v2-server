@@ -23,6 +23,7 @@
     "gulp": "~3.3.0",
     "mocha": "~1.17.0",
     "gulp-mocha": "~0.3.0",
-    "gulp-batch": "~0.3.3"
+    "gulp-batch": "~0.3.3",
+    "supertest": "~0.8.3"
   }
 }

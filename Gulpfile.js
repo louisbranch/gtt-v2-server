@@ -4,7 +4,7 @@ var batch = require("gulp-batch");
 
 gulp.task("test", function () {
   gulp.src("test/*.js")
-    .pipe(mocha());
+    .pipe(mocha("--harmony"));
 });
 
 gulp.task("default", function () {
