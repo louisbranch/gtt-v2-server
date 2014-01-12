@@ -54,4 +54,23 @@ describe("projects", function(){
 
   });
 
+  describe("POST /projects", function(){
+
+    describe("valid project data", function(){
+      it("returns the newly created project", function(done){
+        request
+        .post("/v1/projects?email=me@luizbranco.com&token=" + token +
+          "&name=ReplayPoker&rate=1")
+        .expect(200)
+        .expect({
+          "name":"ReplayPoker",
+          "rate":1,
+          "currrency":"usd"
+        }, done);
+      });
+
+    });
+
+  });
+
 });
