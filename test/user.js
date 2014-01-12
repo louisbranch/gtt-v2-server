@@ -12,7 +12,7 @@ describe("POST /users", function(){
     });
   });
 
-  describe("invalid email", function(){
+  describe("missing email", function(){
 
     it("returns an error", function(done){
       request
@@ -22,7 +22,7 @@ describe("POST /users", function(){
     });
   });
 
-  describe("invalid password", function(){
+  describe("missing password", function(){
 
     it("returns an error", function(done){
       request
