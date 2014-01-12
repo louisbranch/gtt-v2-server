@@ -68,6 +68,15 @@ describe("projects", function(){
           "currrency":"usd"
         }, done);
       });
+    });
+
+    describe("missing name", function(){
+      it("returns an error", function(done){
+        request
+        .post("/v1/projects?email=me@luizbranco.com&token=" + token)
+        .expect(404)
+        .expect("name required", done);
+      });
 
     });
 
