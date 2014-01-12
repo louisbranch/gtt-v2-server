@@ -1,7 +1,16 @@
 var app = require("../app");
 var request = require("supertest").agent(app.listen());
+var db = require("../lib/db");
 
 describe("POST /users", function(){
+
+  before(function(done){
+    db.create("gtt", done);
+  });
+
+  after(function(done){
+    db.destroy("gtt", done);
+  });
 
   describe("valid params", function(){
     it("returns an user token", function(done){

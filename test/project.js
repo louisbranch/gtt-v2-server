@@ -1,10 +1,19 @@
 var app = require("../app");
 var request = require("supertest").agent(app.listen());
+var db = require("../lib/db");
 
 describe("projects", function(){
   var token;
 
-  beforeEach(function(done){
+  before(function(done){
+    db.create("gtt", done);
+  });
+
+  after(function(done){
+    db.destroy("gtt", done);
+  });
+
+  before(function(done){
     request
     .post("/v1/users?email=me@luizbranco.com&password=secret")
     .end(function (err, res) {
@@ -17,9 +26,9 @@ describe("projects", function(){
   describe("GET /projects", function(){
 
     describe("valid auth", function(){
-      xit("returns a list of projects", function(done){
+      it("returns a list of projects", function(done){
         request
-        .post("/v1/projects?email=me@luizbranco.com&token=" + token)
+        .get("/v1/projects?email=me@luizbranco.com&token=" + token)
         .expect(200)
         .expect("[]", done);
       });
@@ -28,7 +37,7 @@ describe("projects", function(){
     describe("missing email", function(){
       it("return an error", function(done){
         request
-        .post("/v1/projects")
+        .get("/v1/projects")
         .expect(404)
         .expect("email required", done);
       });
@@ -37,7 +46,7 @@ describe("projects", function(){
     describe("missing token", function(){
       it("return an error", function(done){
         request
-        .post("/v1/projects?email=me@luizbranco")
+        .get("/v1/projects?email=me@luizbranco")
         .expect(404)
         .expect("token required", done);
       });
