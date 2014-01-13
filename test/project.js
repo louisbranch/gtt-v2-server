@@ -59,8 +59,7 @@ describe("projects", function(){
     describe("valid project data", function(){
       it("returns the newly created project", function(done){
         request
-        .post("/v1/projects?email=me@luizbranco.com&token=" + token +
-          "&name=ReplayPoker&rate=1")
+        .post(params() + "&rate=1")
         .expect(200)
         .expect({
           "name":"ReplayPoker",
@@ -77,9 +76,27 @@ describe("projects", function(){
         .expect(404)
         .expect("name required", done);
       });
+    });
 
+    describe("name already exists", function(){
+
+      beforeEach(function(done){
+        request.post(params())
+        done();
+      });
+
+      it("returns an error", function(done){
+        request.post(params())
+        .expect(404)
+        .expect("project name already exists", done);
+      });
     });
 
   });
+
+  function params() {
+    return "/v1/projects?email=me@luizbranco.com&token=" + token +
+      "&name=ReplayPoker";
+  }
 
 });
