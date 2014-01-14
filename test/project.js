@@ -94,6 +94,29 @@ describe("projects", function(){
 
   });
 
+  describe("GET /projects/:id", function(){
+
+    describe("when project exists", function(){
+      beforeEach(function(done){
+        request.post(params())
+        done();
+      });
+
+      it("returns the project", function(done){
+        request
+        .get("/v1/projects/replaypoker?email=me@luizbranco.com&token=" + token)
+        .expect(200)
+        .expect({
+          currrency: "usd",
+          name: "ReplayPoker",
+          rate: 1
+        }, done);
+      });
+
+    });
+
+  });
+
   function params() {
     return "/v1/projects?email=me@luizbranco.com&token=" + token +
       "&name=ReplayPoker";
