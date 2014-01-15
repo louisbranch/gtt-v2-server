@@ -1,4 +1,4 @@
-var config = require("../config");
+var config = require("../../config");
 var nano = require("nano")(config.DB);
 var thunk = require("thunkify");
 

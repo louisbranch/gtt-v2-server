@@ -1,4 +1,4 @@
-var db = require("./db");
+var db = require("../services/db");
 var _ = require("lodash");
 
 module.exports = function () {

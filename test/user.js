@@ -1,6 +1,6 @@
 var app = require("../app");
 var request = require("supertest").agent(app.listen());
-var db = require("../lib/db");
+var db = require("../api/services/db");
 
 describe("POST /users", function(){
 

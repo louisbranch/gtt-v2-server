@@ -1,6 +1,6 @@
 var app = require("../app");
 var request = require("supertest").agent(app.listen());
-var db = require("../lib/db");
+var db = require("../api/services/db");
 
 describe("projects", function(){
   var token;
@@ -114,6 +114,10 @@ describe("projects", function(){
       });
 
     });
+
+  });
+
+  describe("PUT /projects/:id", function(){
 
   });
 

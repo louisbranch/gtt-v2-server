@@ -1,5 +1,6 @@
-var user = require("./user");
 var _ = require("lodash");
+var User = require("../models/user");
+var Project = require("../models/project");
 
 module.exports = {
   findAll: findAll,
@@ -28,14 +29,8 @@ function *create() {
 
   var project = new Project(this.query);
   this.user.projects.push(project);
-  yield user.save(this.user, this.email, this);
+  yield User.prototype.save.call(this.user, this.email, this);
   this.body = project;
-}
-
-function Project(params) {
-  this.name = params.name;
-  this.rate = params.rate || 0;
-  this.currrency = params.currrency || "usd";
 }
 
 function find(projects, name) {
