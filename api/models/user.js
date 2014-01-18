@@ -3,28 +3,32 @@ var pswd = require("pswd")();
 var crypto = require("crypto");
 var db = require("../services/db");
 
-module.exports = User;
+module.exports = {
+  create: create,
+  save: save
+};
 
-function *User(pass) {
+function *create(email, pass) {
   var salt = generateSalt();
   var hash = yield* pswd.hash(pass, salt);
   var token = generateToken();
-
-  this.salt = salt;
-  this.hash = hash;
-  this.tokens = [token];
-  this.projects = [];
-
-  return this;
+  var user = {
+    salt: salt,
+    hash: hash,
+    tokens: [token],
+    projects: []
+  };
+  yield save(user, email)
+  return user;
 }
 
 /* Save user to the database */
-User.prototype.save = function* (email, ctx) {
+function *save(user, email) {
   var doc;
   try {
-    doc = yield db.set(this, email);
+    doc = yield db.set(user, email);
   } catch (e) {
-    ctx.throw(400)
+    throw(400)
   }
   return doc;
 };

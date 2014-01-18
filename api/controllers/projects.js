@@ -1,11 +1,10 @@
-var _ = require("lodash");
-var User = require("../models/user");
-var Project = require("../models/project");
+var model = require("../models/project");
 
 module.exports = {
   findAll: findAll,
   findOne: findOne,
-  create: create
+  create: create,
+  update: update
 };
 
 function *findAll() {
@@ -13,28 +12,27 @@ function *findAll() {
 }
 
 function *findOne() {
-  var name = this.params.id;
-  var project = find(this.user.projects, name);
-  if (!project) this.throw("project " + name + " doesn't exist", 404);
-  this.body = project;
+  this.body = find(this);
 }
 
 function *create() {
   var name = this.query.name;
   if (!name) this.throw("name required", 404);
 
-  if (find(this.user.projects, name)) {
+  if (model.find(name, this.user.projects)) {
     this.throw("project name already exists", 404);
   }
 
-  var project = new Project(this.query);
-  this.user.projects.push(project);
-  yield User.prototype.save.call(this.user, this.email, this);
-  this.body = project;
+  this.body = yield model.create(this.query, this.user, this.email);
 }
 
-function find(projects, name) {
-  return _.find(projects, function (project) {
-    return project.name.toLowerCase() === name.toLowerCase();
-  });
+function *update() {
+  var project = find(this);
+}
+
+function find(ctx) {
+  var name = ctx.params.id;
+  var project = model.find(name, ctx.user.projects);
+  if (!project) ctx.throw("project " + name + " doesn't exist", 404);
+  return project;
 }

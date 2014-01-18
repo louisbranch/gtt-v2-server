@@ -23,6 +23,11 @@ describe("projects", function(){
     });
   });
 
+  before(function(done){
+    request.post(params())
+    done();
+  });
+
   describe("GET /projects", function(){
 
     describe("valid auth", function(){
@@ -97,11 +102,6 @@ describe("projects", function(){
   describe("GET /projects/:id", function(){
 
     describe("when project exists", function(){
-      beforeEach(function(done){
-        request.post(params())
-        done();
-      });
-
       it("returns the project", function(done){
         request
         .get("/v1/projects/replaypoker?email=me@luizbranco.com&token=" + token)
@@ -112,12 +112,34 @@ describe("projects", function(){
           rate: 1
         }, done);
       });
+    });
 
+    describe("when project doesn't exist yet", function(){
+      it("returns the project", function(done){
+        request
+        .get("/v1/projects/unknown?email=me@luizbranco.com&token=" + token)
+        .expect(404)
+        .expect("project unknown doesn't exist", done);
+      });
     });
 
   });
 
   describe("PUT /projects/:id", function(){
+
+    describe("when project exists", function(){
+
+    });
+
+    describe("when project doesn't exist yet", function(){
+      it("returns the project", function(done){
+        request
+        .put("/v1/projects/unknown?email=me@luizbranco.com&token=" + token +
+            "currency=&brl")
+        .expect(404)
+        .expect("project unknown doesn't exist", done);
+      });
+    });
 
   });
 
