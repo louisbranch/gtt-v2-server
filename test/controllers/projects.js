@@ -1,6 +1,6 @@
-var app = require("../app");
+var app = require("../../app");
 var request = require("supertest").agent(app.listen());
-var db = require("../api/services/db");
+var db = require("../../api/services/db");
 
 describe("projects", function(){
   var token;
