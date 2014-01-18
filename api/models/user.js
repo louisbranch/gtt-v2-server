@@ -18,7 +18,7 @@ function *create(email, pass) {
     tokens: [token],
     projects: []
   };
-  yield save(user, email)
+  yield save(user, email);
   return user;
 }
 
