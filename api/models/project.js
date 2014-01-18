@@ -13,22 +13,25 @@ function *create(params, user, email) {
     rate: params.rate || 0,
     currrency: params.currrency || "usd"
   };
-  user.projects.push(project);
-  yield userModel.save(user, email);
+  yield save(user, email, project);
   return project;
 }
 
-function update(project, params) {
+function *update(project, params, user, email) {
   _.each(project, function (value, key) {
+    project[key] = params[key] || value;
   });
+  yield save(user, email);
+  return project;
+}
+
+function *save(user, email, project) {
+  if (project) user.projects.push(project);
+  yield userModel.save(user, email);
 }
 
 function find(name, projects) {
   return _.find(projects, function (project) {
     return project.name.toLowerCase() === name.toLowerCase();
   });
-}
-
-function *save(project, user, email) {
-  // body...
 }

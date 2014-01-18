@@ -28,6 +28,7 @@ function *create() {
 
 function *update() {
   var project = find(this);
+  this.body = yield model.update(project, this.query, this.user, this.email);
 }
 
 function find(ctx) {

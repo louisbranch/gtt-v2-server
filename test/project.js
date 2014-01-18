@@ -9,10 +9,6 @@ describe("projects", function(){
     db.create("gtt", done);
   });
 
-  after(function(done){
-    db.destroy("gtt", done);
-  });
-
   before(function(done){
     request
     .post("/v1/users?email=me@luizbranco.com&password=secret")
@@ -26,6 +22,10 @@ describe("projects", function(){
   before(function(done){
     request.post(params())
     done();
+  });
+
+  after(function(done){
+    db.destroy("gtt", done);
   });
 
   describe("GET /projects", function(){
@@ -128,7 +128,17 @@ describe("projects", function(){
   describe("PUT /projects/:id", function(){
 
     describe("when project exists", function(){
-
+      it("updates project info", function(done){
+        request
+        .put("/v1/projects/replaypoker?email=me@luizbranco.com&token=" + token +
+            "&currrency=brl")
+        .expect(200)
+        .expect({
+          currrency: "brl",
+          name: "ReplayPoker",
+          rate: 1
+        }, done);
+      });
     });
 
     describe("when project doesn't exist yet", function(){
