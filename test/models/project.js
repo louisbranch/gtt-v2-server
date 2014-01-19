@@ -9,13 +9,13 @@ describe("project model", function(){
       var project = create({
         name: "NodeJS",
         rate: 40,
-        currrency: "brl"
+        currency: "brl"
       });
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 40,
-        currrency: "brl",
-        months: []
+        currency: "brl",
+        days: []
       });
     });
 
@@ -24,8 +24,8 @@ describe("project model", function(){
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 0,
-        currrency: "usd",
-        months: []
+        currency: "usd",
+        days: []
       });
     });
 

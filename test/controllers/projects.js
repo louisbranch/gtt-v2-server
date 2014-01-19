@@ -10,7 +10,16 @@ describe("projects controller", function(){
         request
         .get("/v1/projects?email=me@luizbranco.com&token=" + global.token)
         .expect(200)
-        .expect("[]", done);
+        .expect([{
+          name: "KoaJS",
+          rate: 0,
+          currency: "usd",
+          days: [{
+            breaks: [],
+            date: "2014-01-19",
+            tasks: []
+          }]
+        }], done);
       });
     });
 
@@ -42,10 +51,10 @@ describe("projects controller", function(){
         .post(params() + "&rate=1")
         .expect(200)
         .expect({
-          "name":"NodeJS",
-          "rate":1,
-          "currrency":"usd",
-          "months": []
+          name:"NodeJS",
+          rate:1,
+          currency:"usd",
+          days: []
         }, done);
       });
     });
@@ -83,10 +92,10 @@ describe("projects controller", function(){
         .get("/v1/projects/nodejs?email=me@luizbranco.com&token=" + global.token)
         .expect(200)
         .expect({
-          currrency: "usd",
+          currency: "usd",
           name: "NodeJS",
           rate: 1,
-          months: []
+          days: []
         }, done);
       });
     });
@@ -108,13 +117,13 @@ describe("projects controller", function(){
       it("updates project info", function(done){
         request
         .put("/v1/projects/nodejs?email=me@luizbranco.com&token=" + global.token +
-            "&currrency=brl")
+            "&currency=brl")
         .expect(200)
         .expect({
-          currrency: "brl",
+          currency: "brl",
           name: "NodeJS",
           rate: 1,
-          months: []
+          days: []
         }, done);
       });
     });

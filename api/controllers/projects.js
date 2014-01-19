@@ -4,7 +4,8 @@ module.exports = {
   findAll: findAll,
   findOne: findOne,
   create: create,
-  update: update
+  update: update,
+  find: find
 };
 
 function *findAll() {

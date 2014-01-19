@@ -11,8 +11,8 @@ function *create(params, user, email) {
   var project = {
     name: params.name,
     rate: params.rate || 0,
-    currrency: params.currrency || "usd",
-    months: []
+    currency: params.currency || "usd",
+    days: []
   };
   yield save(user, email, project);
   return project;
