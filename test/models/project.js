@@ -14,7 +14,8 @@ describe("project model", function(){
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 40,
-        currrency: "brl"
+        currrency: "brl",
+        months: []
       });
     });
 
@@ -23,7 +24,8 @@ describe("project model", function(){
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 0,
-        currrency: "usd"
+        currrency: "usd",
+        months: []
       });
     });
 
