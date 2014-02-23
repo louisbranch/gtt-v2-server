@@ -1,3 +1,4 @@
+var save = require("../models/user").save;
 var model = require("../models/project");
 
 module.exports = {
@@ -24,12 +25,17 @@ function *create() {
     this.throw("project name already exists", 404);
   }
 
-  this.body = yield model.create(this.query, this.user, this.email);
+
+  project = model.create(this.query, this.user);
+  yield save(this.user, this.email);
+  this.body = project;
 }
 
 function *update() {
   var project = find(this);
-  this.body = yield model.update(project, this.query, this.user, this.email);
+  project = model.update(project, this.query);
+  yield save(this.user, this.email);
+  this.body = project;
 }
 
 function find(ctx) {

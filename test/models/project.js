@@ -2,15 +2,20 @@ var model = require("../../api/models/project");
 var assert = require("assert");
 
 describe("project model", function(){
+  var user;
+
+  beforeEach(function(){
+    user = {projects: []};
+  });
 
   describe("create", function(){
 
     it("return a new project", function(){
-      var project = create({
+      var project = model.create({
         name: "NodeJS",
         rate: 40,
         currency: "brl"
-      });
+      }, user);
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 40,
@@ -20,7 +25,7 @@ describe("project model", function(){
     });
 
     it("fallbacks to default values", function(){
-      var project = create({name: "NodeJS"});
+      var project = model.create({name: "NodeJS"}, user);
       assert.deepEqual(project, {
         name: "NodeJS",
         rate: 0,
@@ -29,21 +34,13 @@ describe("project model", function(){
       });
     });
 
-    function create(params) {
-      var gen = model.create(params)
-      gen.next();
-      return gen.next().value;
-    }
-
   });
 
   describe("update", function(){
 
     it("overwrites original project values passed", function(){
       var original = {name: "NodeJS", rate: 10};
-      var gen = model.update(original, {name: "New Name"});
-      gen.next();
-      var project = gen.next().value;
+      var project = model.update(original, {name: "New Name"});
       assert.deepEqual(project, {
         name: "New Name",
         rate: 10

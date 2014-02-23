@@ -1,34 +1,71 @@
+var save  = require("../models/user").save;
 var model = require("../models/day");
 var projects = require("./projects");
 
 module.exports = {
   create: create,
-  findOne: findOne
+  findOne: findOne,
+  update: update,
+  end: end,
+  date: date
 };
 
 function *create() {
+  var id = this.query.date;
+  if (!id) throw("date required", 404);
+
   var project = projects.find(this);
 
-  if (model.find(date(this), project.days)) {
+  if (model.find(id, project.days)) {
     this.throw("date already exists", 404);
   }
 
-  this.body = yield model.create(project, this.query, this.user,
-                                 this.email);
+  var day;
+
+  try {
+    day = model.create(project, this.query);
+    yield save(this.user, this.email);
+    this.body = day;
+  } catch (e) {
+    this.throw(e, 404);
+  }
+
 }
 
 function *findOne() {
-  var project = projects.find(this);
+  this.body = date(this);
+}
 
-  var day = model.find(date(this), project.days);
+function *update() {
+  var day = date(this);
 
-  if (!day) this.throw("date doesn't exist", 404);
+  try {
+    day = model.update(day, this.query);
+    yield save(this.user, this.email);
+    this.body = day;
+  } catch (e) {
+    this.throw(e, 400);
+  }
+}
 
-  this.body = day;
+function *end() {
+  var day = date(this);
+  try {
+    day = model.end(day, this.query, this.user, this.email);
+    yield save(this.user, this.email);
+    this.body = day;
+  } catch (e) {
+    this.throw(e, 400);
+  }
 }
 
 function date(ctx) {
-  var date = ctx.query.date;
-  if (!date) throw("date required", 404);
-  return date;
+  var id = ctx.params.date;
+  if (!id) throw("date required", 404);
+
+  var project = projects.find(ctx);
+  var day = model.find(id, project.days);
+  if (!day) ctx.throw("date doesn't exist", 404);
+
+  return day;
 }

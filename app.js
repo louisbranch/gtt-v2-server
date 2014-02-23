@@ -5,6 +5,8 @@ var auth = require("./api/policies/authenticate")();
 var users = require("./api/controllers/users");
 var projects = require("./api/controllers/projects");
 var days = require("./api/controllers/days");
+var tasks = require("./api/controllers/tasks");
+var pauses = require("./api/controllers/pauses");
 
 // Middlewares ----------------------------- //
 
@@ -25,10 +27,12 @@ app.put("/v1/projects/:id", auth, projects.update);
 app.get("/v1/projects/:id/days/:date", auth, days.findOne);
 app.post("/v1/projects/:id/days", auth, days.create);
 app.put("/v1/projects/:id/days/:date", auth, days.update);
-app.post("/v1/projects/:id/days/:date/tasks", auth, days.tasks);
-app.post("/v1/projects/:id/days/:date/breaks", auth, days.breaks);
+app.post("/v1/projects/:id/days/:date/tasks", auth, tasks.create);
+app.post("/v1/projects/:id/days/:date/pause", auth, pauses.start);
+app.post("/v1/projects/:id/days/:date/resume", auth, pauses.stop);
+app.post("/v1/projects/:id/days/:date/end", auth, days.end);
 
 // Months
-app.get("/v1/projects/:id/months/:month");
+app.get("/v1/projects/:id/months/:month"); //TODO
 
 if (!module.parent) app.listen(8080);

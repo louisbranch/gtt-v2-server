@@ -15,9 +15,23 @@ describe("projects controller", function(){
           rate: 0,
           currency: "usd",
           days: [{
-            breaks: [],
             date: "2014-01-19",
-            tasks: []
+            start: "2014-01-19T10:11:25.234Z",
+            end: "2014-01-19T18:00:00.234Z",
+            pauses: [
+              {
+                message: "brb",
+                start: "2014-01-19T12:00:00.234Z",
+                end: "2014-01-19T12:30:00.234Z"
+              }
+            ],
+            tasks: [
+              {
+                end: "2014-01-19T11:00:00.234Z",
+                message: "Initial Commit",
+                branch: "master"
+              }
+            ]
           }]
         }], done);
       });

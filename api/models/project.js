@@ -1,4 +1,3 @@
-var userModel = require("./user");
 var _ = require("lodash");
 
 module.exports = {
@@ -7,28 +6,22 @@ module.exports = {
   find: find
 };
 
-function *create(params, user, email) {
+function create(params, user) {
   var project = {
     name: params.name,
     rate: params.rate || 0,
     currency: params.currency || "usd",
     days: []
   };
-  yield save(user, email, project);
+  user.projects.push(project);
   return project;
 }
 
-function *update(project, params, user, email) {
+function update(project, params) {
   _.each(project, function (value, key) {
     project[key] = params[key] || value;
   });
-  yield save(user, email);
   return project;
-}
-
-function *save(user, email, project) {
-  if (project) user.projects.push(project);
-  yield userModel.save(user, email);
 }
 
 function find(name, projects) {
