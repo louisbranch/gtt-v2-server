@@ -108,8 +108,11 @@ describe("day model", function(){
     });
 
     describe("when day is already over", function(){
-      xit("changes the end date", function(){
-        var day = {start: "2014-01-23T10:00:00.503Z"};
+      it("changes the end date", function(){
+        var day = {
+          start: "2014-01-23T10:00:00.503Z",
+          end: "2014-01-23T15:00:00.503Z"
+        };
         model.end(day, params);
         assert.deepEqual("2014-01-23T18:00:00.503Z", day.end);
       });
