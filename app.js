@@ -7,6 +7,7 @@ var projects = require("./api/controllers/projects");
 var days = require("./api/controllers/days");
 var tasks = require("./api/controllers/tasks");
 var pauses = require("./api/controllers/pauses");
+var months = require("./api/controllers/months");
 
 // Middlewares ----------------------------- //
 
@@ -33,6 +34,6 @@ app.post("/v1/projects/:id/days/:date/resume", auth, pauses.stop);
 app.post("/v1/projects/:id/days/:date/end", auth, days.end);
 
 // Months
-app.get("/v1/projects/:id/months/:month"); //TODO
+app.get("/v1/projects/:id/months/:month", auth, months.findOne);
 
 if (!module.parent) app.listen(8080);

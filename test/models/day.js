@@ -119,8 +119,13 @@ describe("day model", function(){
         assert.deepEqual("2014-01-23T18:00:00.503Z", day.end);
       });
 
-      xit("recalculates day duration", function(){
-
+      it("recalculates day duration", function(){
+        var day = {
+          start: "2014-01-23T10:00:00.503Z",
+          end: "2014-01-23T15:00:00.503Z"
+        };
+        model.end(day, params);
+        assert.deepEqual(480, day.duration);
       });
     });
 
