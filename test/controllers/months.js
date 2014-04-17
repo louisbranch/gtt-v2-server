@@ -19,27 +19,33 @@ describe("months controller", function(){
             "email=me@luizbranco.com&token=" +
             global.token)
       .expect(200)
-      .expect([
-        {
-          date: "2014-01-19",
-          duration: 439,
-          start: "2014-01-19T10:11:25.234Z",
-          end: "2014-01-19T18:00:00.234Z",
-          pauses: [
+      .expect({
+          days: [
             {
-              message: "brb",
-              start: "2014-01-19T12:00:00.234Z",
-              end: "2014-01-19T12:30:00.234Z"
+              date: "2014-01-19",
+              duration: 439,
+              start: "2014-01-19T10:11:25.234Z",
+              end: "2014-01-19T18:00:00.234Z",
+              pauses: [
+                {
+                  message: "brb",
+                  start: "2014-01-19T12:00:00.234Z",
+                  end: "2014-01-19T12:30:00.234Z"
+                }
+              ],
+              tasks: [
+                {
+                  end: "2014-01-19T11:00:00.234Z",
+                  message: "Initial Commit",
+                  branch: "master"
+                }
+              ]
             }
           ],
-          tasks: [
-            {
-              end: "2014-01-19T11:00:00.234Z",
-              message: "Initial Commit",
-              branch: "master"
-            }
-          ]
-        }], done);
+          duration: 439,
+          cost: 0,
+          currency: "usd"
+        }, done);
     });
 
   });

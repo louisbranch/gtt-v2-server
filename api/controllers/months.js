@@ -10,6 +10,6 @@ function *findOne() {
   if (!date) throw("month required", 404);
 
   var project = projects.find(this);
-  this.body = model.find(date, project.days);
+  this.body = model.find(date, project);
 }
 
