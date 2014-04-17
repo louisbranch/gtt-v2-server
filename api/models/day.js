@@ -30,6 +30,7 @@ function update(day, params) {
 function end(day, params) {
   if (helper.isPaused(day)) throw("day has been paused");
   day.end = params.end;
+  day.duration = time.dayToMinutes(day);
   return day;
 }
 

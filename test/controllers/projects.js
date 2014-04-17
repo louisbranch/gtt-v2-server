@@ -16,6 +16,7 @@ describe("projects controller", function(){
           currency: "usd",
           days: [{
             date: "2014-01-19",
+            duration: 439,
             start: "2014-01-19T10:11:25.234Z",
             end: "2014-01-19T18:00:00.234Z",
             pauses: [

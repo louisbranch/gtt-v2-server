@@ -158,6 +158,7 @@ describe("days controller", function(){
         date: "2014-01-19",
         start: "2014-01-19T10:11:25.234Z",
         end: "2014-01-19T18:00:00.234Z",
+        duration: 439,
         pauses: [
           {
             message: "brb",

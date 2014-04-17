@@ -35,6 +35,7 @@ function dayInMinutes(day){
 }
 
 function pausesInMinutes(pauses){
+  pauses = pauses || [];
   return pauses.reduce(function(acc, pause) {
     var end = parse(pause.end);
     var start = parse(pause.start);
