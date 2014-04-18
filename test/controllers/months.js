@@ -42,8 +42,8 @@ describe("months controller", function(){
               ]
             }
           ],
-          duration: 439,
-          cost: 0,
+          time: "08h19",
+          cost: 219.5,
           currency: "usd"
         }, done);
     });

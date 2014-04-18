@@ -12,7 +12,7 @@ describe("projects controller", function(){
         .expect(200)
         .expect([{
           name: "KoaJS",
-          rate: 0,
+          rate: 30,
           currency: "usd",
           days: [{
             date: "2014-01-19",

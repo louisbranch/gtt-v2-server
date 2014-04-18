@@ -7,7 +7,7 @@ describe("days controller", function(){
   before(function(done){
     request
     .post("/v1/projects?email=me@luizbranco.com&token=" + global.token +
-         "&name=KoaJS")
+         "&name=KoaJS&rate=30")
     .end(done)
   });
 
