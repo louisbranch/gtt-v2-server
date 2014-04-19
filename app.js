@@ -16,7 +16,8 @@ app.use(require("koa-trie-router")(app));
 // Routing --------------------------------- //
 
 // Users
-app.post("/v1/users", users.create);
+app.post("/v1/signup", users.create);
+app.post("/v1/login", users.login); //TODO
 
 // Projects
 app.get("/v1/projects", auth, projects.findAll);

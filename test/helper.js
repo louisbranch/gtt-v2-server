@@ -8,7 +8,7 @@ before(function(done){
 
 before(function(done){
   request
-  .post("/v1/users?email=me@luizbranco.com&password=secret")
+  .post("/v1/signup?email=me@luizbranco.com&password=secret")
   .end(function (err, res) {
     if (err) throw err;
     global.token = res.text;
