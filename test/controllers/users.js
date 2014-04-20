@@ -39,7 +39,7 @@ describe("users controller", function(){
   describe("POST /login", function(){
 
     describe("valid credentials", function(){
-      xit("returns an user token", function(done){
+      it("returns an user token", function(done){
         request
         .post("/v1/login?email=test@luizbranco.com&password=secret")
         .expect(200)
@@ -47,17 +47,26 @@ describe("users controller", function(){
       });
     });
 
+    describe("user doesn't exist", function(){
+      it("returns an error", function(done) {
+        request
+        .post("/v1/login?email=none@luizbranco.com&password=secret")
+        .expect(400)
+        .expect("invalid credentials", done);
+      });
+    });
+
     describe("invalid credentials", function(){
-      xit("returns an error", function() {
+      it("returns an error", function(done) {
         request
         .post("/v1/login?email=test@luizbranco.com&password=wrongone")
-        .expect(404)
-        .expect("wrong credentials", done);
+        .expect(400)
+        .expect("invalid credentials", done);
       });
     });
 
     describe("missing email", function(){
-      xit("returns an error", function(done){
+      it("returns an error", function(done){
         request
         .post("/v1/login?password=secret")
         .expect(404)
@@ -66,7 +75,7 @@ describe("users controller", function(){
     });
 
     describe("missing password", function(){
-      xit("returns an error", function(done){
+      it("returns an error", function(done){
         request
         .post("/v1/login?email=test@luizbranco.com")
         .expect(404)

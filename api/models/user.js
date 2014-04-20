@@ -5,12 +5,13 @@ var db = require("../services/db");
 
 module.exports = {
   create: create,
+  login: login,
   save: save
 };
 
-function *create(email, pass) {
+function *create(credentials) {
   var salt = generateSalt();
-  var hash = yield* pswd.hash(pass, salt);
+  var hash = yield* pswd.hash(credentials.password, salt);
   var token = generateToken();
   var user = {
     salt: salt,
@@ -18,7 +19,19 @@ function *create(email, pass) {
     tokens: [token],
     projects: []
   };
-  yield save(user, email);
+  yield save(user, credentials.email);
+  return user;
+}
+
+function *login(credentials) {
+  var user;
+  try {
+    user = (yield db.get(credentials.email))[0];
+  } catch (e) {
+    throw("invalid credentials");
+  }
+  var hash = yield* pswd.hash(credentials.password, user.salt);
+  if (hash !== user.hash) throw("invalid credentials");
   return user;
 }
 
@@ -28,7 +41,7 @@ function *save(user, email) {
   try {
     doc = yield db.set(user, email);
   } catch (e) {
-    throw(400)
+    throw(400, e);
   }
   return doc;
 };
