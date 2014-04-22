@@ -1,4 +1,5 @@
 var app = require("../../app");
+var assert = require("assert");
 var request = require("supertest").agent(app.listen());
 
 describe("users controller", function(){
@@ -39,12 +40,26 @@ describe("users controller", function(){
   describe("POST /login", function(){
 
     describe("valid credentials", function(){
-      it("returns an user token", function(done){
+      var body
+
+      before(function(done){
         request
-        .post("/v1/login?email=test@luizbranco.com&password=secret")
+        .post("/v1/login?email=me@luizbranco.com&password=secret")
         .expect(200)
-        .expect(/\w{32}/, done); // 32 chars token
+        .end(function (err, res) {
+          body = res.body;
+          done();
+        });
       });
+
+      it("returns an user token", function(){
+        assert.equal(32, body.token.length);
+      });
+
+      it("returns the user project names", function(){
+        assert.deepEqual(["KoaJS", "NodeJS"], body.projects);
+      });
+
     });
 
     describe("user doesn't exist", function(){

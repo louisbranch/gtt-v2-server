@@ -18,7 +18,10 @@ function *login() {
   var user;
   try {
     user = yield model.login(credentials);
-    this.body = _.last(user.tokens);
+    this.body = {
+      token: _.last(user.tokens),
+      projects: _.pluck(user.projects, "name")
+    };
   } catch (e) {
     this.throw(e, 400);
   }
