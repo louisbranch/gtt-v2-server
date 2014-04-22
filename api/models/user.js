@@ -10,17 +10,9 @@ module.exports = {
 };
 
 function *create(credentials) {
-  var salt = generateSalt();
-  var hash = yield* pswd.hash(credentials.password, salt);
-  var token = generateToken();
-  var user = {
-    salt: salt,
-    hash: hash,
-    tokens: [token],
-    projects: []
-  };
-  yield save(user, credentials.email);
-  return user;
+  var user = yield getUser(credentials.email);
+  if (user) throw("user already exists");
+  return yield fabricateUser(credentials);
 }
 
 function *login(credentials) {
@@ -54,4 +46,28 @@ function generateToken() {
 /* Create random salt */
 function generateSalt() {
   return crypto.randomBytes(128).toString("base64");
+}
+
+/* Return db user */
+function *getUser(email) {
+  var user;
+  try {
+    user = yield db.get(email);
+  } catch (e) {
+  }
+  return user;
+}
+
+function *fabricateUser(credentials) {
+  var salt = generateSalt();
+  var hash = yield* pswd.hash(credentials.password, salt);
+  var token = generateToken();
+  var user = {
+    salt: salt,
+    hash: hash,
+    tokens: [token],
+    projects: []
+  };
+  yield save(user, credentials.email);
+  return user;
 }

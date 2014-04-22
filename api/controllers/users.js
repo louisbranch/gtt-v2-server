@@ -9,7 +9,12 @@ module.exports = {
 
 function *create() {
   var credentials = validate(this);
-  var user = yield model.create(credentials);
+  var user;
+  try {
+    user = yield model.create(credentials);
+  } catch (e) {
+    this.throw(e, 400);
+  }
   this.body = _.first(user.tokens);
 }
 
@@ -18,13 +23,13 @@ function *login() {
   var user;
   try {
     user = yield model.login(credentials);
-    this.body = {
-      token: _.last(user.tokens),
-      projects: _.pluck(user.projects, "name")
-    };
   } catch (e) {
     this.throw(e, 400);
   }
+  this.body = {
+    token: _.last(user.tokens),
+    projects: _.pluck(user.projects, "name")
+  };
 }
 
 function *save(user, email) {

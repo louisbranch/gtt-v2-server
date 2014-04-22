@@ -16,7 +16,6 @@ describe("users controller", function(){
     });
 
     describe("missing email", function(){
-
       it("returns an error", function(done){
         request
         .post("/v1/signup?password=secret")
@@ -26,12 +25,20 @@ describe("users controller", function(){
     });
 
     describe("missing password", function(){
-
       it("returns an error", function(done){
         request
         .post("/v1/signup?email=test@luizbranco.com")
         .expect(404)
         .expect("password required", done);
+      });
+    });
+
+    describe("when user already exists", function(){
+      it("returns an error", function(done){
+        request
+        .post("/v1/signup?email=test@luizbranco.com&password=secret")
+        .expect(400)
+        .expect("user already exists", done);
       });
     });
 
