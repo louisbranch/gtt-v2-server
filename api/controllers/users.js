@@ -27,6 +27,7 @@ function *login() {
     this.throw(e, 400);
   }
   this.body = {
+    email: credentials.email,
     token: _.last(user.tokens),
     projects: _.pluck(user.projects, "name")
   };

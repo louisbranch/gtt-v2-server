@@ -67,6 +67,10 @@ describe("users controller", function(){
         assert.deepEqual(["KoaJS", "NodeJS"], body.projects);
       });
 
+      it("returns the user email", function(){
+        assert.deepEqual("me@luizbranco.com", body.email);
+      });
+
     });
 
     describe("user doesn't exist", function(){
