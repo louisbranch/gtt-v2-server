@@ -7,6 +7,7 @@ module.exports = {
   findOne: findOne,
   update: update,
   end: end,
+  status: status,
   date: date
 };
 
@@ -57,6 +58,11 @@ function *end() {
   } catch (e) {
     this.throw(e, 400);
   }
+}
+
+function *status() {
+  var day = date(this);
+  this.body = model.status(day);
 }
 
 function date(ctx) {

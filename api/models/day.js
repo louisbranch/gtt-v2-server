@@ -6,7 +6,8 @@ module.exports = {
   create: create,
   update: update,
   find: find,
-  end: end
+  end: end,
+  status: status
 };
 
 function create(project, params) {
@@ -32,6 +33,11 @@ function end(day, params) {
   day.end = params.end;
   day.duration = time.dayToMinutes(day);
   return day;
+}
+
+function status(day) {
+  var mins = time.dayToMinutes(day);
+  return time.display(mins);
 }
 
 function validate(params) {

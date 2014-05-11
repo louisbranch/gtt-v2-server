@@ -177,4 +177,17 @@ describe("days controller", function(){
     });
   });
 
+  describe("GET /projects/:id/days/:date/status", function(){
+
+    it("returns the day status", function(done){
+      request
+      .get("/v1/projects/koajs/days/2014-01-19/status?" +
+            "email=me@luizbranco.com&token=" +
+            global.token)
+      .expect(200)
+      .expect("07:19", done);
+    });
+
+  });
+
 });

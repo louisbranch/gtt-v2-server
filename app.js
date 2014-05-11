@@ -33,6 +33,7 @@ app.post("/v1/projects/:id/days/:date/tasks", auth, tasks.create);
 app.post("/v1/projects/:id/days/:date/pause", auth, pauses.start);
 app.post("/v1/projects/:id/days/:date/resume", auth, pauses.stop);
 app.post("/v1/projects/:id/days/:date/end", auth, days.end);
+app.get("/v1/projects/:id/days/:date/status", auth, days.status);
 
 // Months
 app.get("/v1/projects/:id/months/:month", auth, months.findOne);
