@@ -10,31 +10,7 @@ describe("projects controller", function(){
         request
         .get("/v1/projects?email=me@luizbranco.com&token=" + global.token)
         .expect(200)
-        .expect([{
-          name: "KoaJS",
-          rate: 30,
-          currency: "usd",
-          days: [{
-            date: "2014-01-19",
-            duration: 439,
-            start: "2014-01-19T10:11:25.234Z",
-            end: "2014-01-19T18:00:00.234Z",
-            pauses: [
-              {
-                message: "brb",
-                start: "2014-01-19T12:00:00.234Z",
-                end: "2014-01-19T12:30:00.234Z"
-              }
-            ],
-            tasks: [
-              {
-                end: "2014-01-19T11:00:00.234Z",
-                message: "Initial Commit",
-                branch: "master"
-              }
-            ]
-          }]
-        }], done);
+        .expect(["KoaJS"], done);
       });
     });
 

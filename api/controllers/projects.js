@@ -1,3 +1,4 @@
+var _ = require("lodash");
 var save = require("../models/user").save;
 var model = require("../models/project");
 
@@ -10,7 +11,8 @@ module.exports = {
 };
 
 function *findAll() {
-  this.body = this.user.projects;
+  var projects = _.pluck(this.user.projects, "name");
+  this.body = projects;
 }
 
 function *findOne() {
