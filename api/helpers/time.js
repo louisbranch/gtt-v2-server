@@ -25,11 +25,11 @@ function display(minutes) {
 }
 
 function dayInMinutes(day){
-  var start = parse(day.start);
-  if (day.end) return parse(day.end) - start;
+  var start = toMinutes(day.start);
+  if (day.end) return toMinutes(day.end) - start;
 
   var task = _.last(day.tasks);
-  if (task) return parse(task.end) - start;
+  if (task) return toMinutes(task.end) - start;
 
   return 0;
 }
@@ -37,19 +37,15 @@ function dayInMinutes(day){
 function pausesInMinutes(pauses){
   pauses = pauses || [];
   return pauses.reduce(function(acc, pause) {
-    var end = parse(pause.end);
-    var start = parse(pause.start);
+    var end = toMinutes(pause.end);
+    var start = toMinutes(pause.start);
     var total = end ? start - end : 0;
     return acc - total;
   }, 0);
 }
 
-function parse(timeString){
-  var regex = new RegExp("(\\d\\d):(\\d\\d)");
-  var match = timeString.match(regex);
-  if (!match) throw "Invalid time format"
-
-  var hours = parseInt(match[1], 10);
-  var minutes = parseInt(match[2], 10);
-  return hours * 60 + minutes;
+function toMinutes(timeString){
+  var date = new Date(timeString);
+  if (!validate(date)) throw "Invalid date format";
+  return Math.floor(date.getTime() / 1000 / 60);
 }

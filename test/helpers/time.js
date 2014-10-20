@@ -5,7 +5,12 @@ describe("time", function(){
   var day;
 
   beforeEach(function(){
-    day = {start: "09:00", end: "18:00", pauses: [], tasks: []};
+    day = {
+      start: "2014-01-23T09:00:00.503Z",
+      end: "2014-01-23T18:00:00.503Z",
+      pauses: [],
+      tasks: []
+    }
   });
 
   describe(".dayToMinutes", function(){
@@ -15,13 +20,21 @@ describe("time", function(){
     });
 
     it("reduces pauses times", function(){
-      day.pauses = [{start: "10:00", end: "10:10"}, {start: "11:20", end: "11:40"}];
+      day.pauses = [
+        { start: "2014-01-23T10:00:00.503Z",
+          end:   "2014-01-23T10:10:00.503Z" },
+        { start: "2014-01-23T11:20:00.503Z",
+          end:   "2014-01-23T11:40:00.503Z" }
+      ];
       assert.equal(time.dayToMinutes(day), 510);
     });
 
     it("returns a partial time when day is not over", function(){
       delete day.end;
-      day.tasks = [{end: "10:10"}, {end: "10:30"}];
+      day.tasks = [
+        { end:   "2014-01-23T10:10:00.503Z" },
+        { end:   "2014-01-23T10:30:00.503Z" }
+      ];
       assert.equal(time.dayToMinutes(day), 90);
     });
 
@@ -48,4 +61,3 @@ describe("time", function(){
   });
 
 });
-

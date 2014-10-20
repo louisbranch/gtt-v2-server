@@ -78,20 +78,20 @@ describe("day model", function(){
   });
 
   describe("end", function(){
-    var params = {end: "2014-01-23T18:00:00.503Z"};
+    var params = {end: "2014-01-24T01:00:00.503Z"};
 
     describe("when day is ongoing", function(){
 
       it("adds end date", function(){
         var day = {start: "2014-01-23T10:00:00.503Z"};
         model.end(day, params);
-        assert.deepEqual("2014-01-23T18:00:00.503Z", day.end);
+        assert.deepEqual("2014-01-24T01:00:00.503Z", day.end);
       });
 
       it("calculates day duration", function(){
         var day = {start: "2014-01-23T10:00:00.503Z"};
         model.end(day, params);
-        assert.deepEqual(480, day.duration);
+        assert.deepEqual(900, day.duration);
       });
 
     });
@@ -116,7 +116,7 @@ describe("day model", function(){
           end: "2014-01-23T15:00:00.503Z"
         };
         model.end(day, params);
-        assert.deepEqual("2014-01-23T18:00:00.503Z", day.end);
+        assert.deepEqual("2014-01-24T01:00:00.503Z", day.end);
       });
 
       it("recalculates day duration", function(){
@@ -125,7 +125,7 @@ describe("day model", function(){
           end: "2014-01-23T15:00:00.503Z"
         };
         model.end(day, params);
-        assert.deepEqual(480, day.duration);
+        assert.deepEqual(900, day.duration);
       });
     });
 
